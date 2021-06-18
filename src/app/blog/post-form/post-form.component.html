@@ -1,0 +1,75 @@
+<div class="container">
+
+    <nav class="row">
+      <div class="nav-wrapper">
+          <button 
+          class="back btn waves-effect waves-light" 
+          routerLink="/">Wróć do strony głównej
+          </button>
+      </div>
+    </nav> 
+  
+    <form autocomplete="off" novalidate [formGroup]="postForm" required>  
+    <div >
+        <label> Tytuł
+          <input
+            class="col s8 "
+            type="text"
+            placeholder="Dodaj tytuł"
+            formControlName="title" 
+          /> 
+        </label>
+       
+        <br>
+
+        <label> Treść
+          <input
+            class="col s8"
+            type="text"
+            size="5000"
+            placeholder="Dodaj treść"
+            formControlName="text" 
+          /> 
+        </label>
+
+        <br>
+      
+        <button
+            class="btn-floating" 
+            (click)="createPost()" 
+        >+</button>
+
+    </div>
+  
+    <ul class="collection">
+      <li class="collection-item row" *ngFor="let post of posts | async; let i = index" >
+        
+        <div> 
+          <span class="col s10" >{{i+1}}.{{post.title| titlecase}}</span>
+          <span class="col s10">{{post.text | slice:0:20}}</span>
+        </div>
+
+        <div class="col s2 right-align">
+          <button class="btn-floating btn-small red" (click)= "removePost()" >
+            <i class="material-icons">remove</i>
+          </button>
+        </div>
+
+      </li>
+    </ul>
+
+</form>
+  
+    <h1 *ngIf="posts.length===0"> Moze coś byś dzisiaj napisał? :-)</h1>
+  
+    <button 
+    class="btn red" 
+    (click)="deleteAll()"
+    >Wyczyść wszystkie posty
+    </button> 
+  
+    <footer class="page-footer mt-5">
+      <div class="footer-copyright"></div>
+    </footer>
+    
+  </div>
